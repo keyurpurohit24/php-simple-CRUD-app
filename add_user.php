@@ -78,11 +78,11 @@
             $sql = "INSERT INTO `users` (`fname`, `lname`, `age`, `dob`) VALUES ('$firstName', '$lastName', '$age', '$dob')";
             if ($conn->query($sql)) {
                 echo "User added successfully !";
-                header('refresh: 2;url=index.php');
+                header('Location: index.php');
             }
             else{
                 echo "Something went wrong !";
-                header('refresh: 2;url=index.php');
+                header('Location: index.php');
             }
         }
     }

@@ -62,7 +62,7 @@
                     session_start();
                     $_SESSION['user'] = $_POST['uid'];
                     echo "Access Granted !";
-                    header('refresh: 2;url=index.php');
+                    header('Location: index.php');
                 }else{
                     echo "Access Denied !";
                 }

@@ -85,11 +85,11 @@
             $sql = "UPDATE `users` SET `fname` = '$firstName', `lname` = '$lastName', `age` = '$age', `dob` = '$dob' WHERE `users`.`id` = $uid";
             if ($conn->query($sql)) {
                 echo "User updated successfully !";
-                header('refresh: 2;url=index.php');
+                header('Location: index.php');
             }
             else{
                 echo "Something went wrong !";
-                header('refresh: 2;url=index.php');
+                header('Location: index.php');
             }
         }
     }
