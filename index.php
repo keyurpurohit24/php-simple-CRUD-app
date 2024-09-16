@@ -33,15 +33,69 @@
     <form action="" method="get">
     <table border="1">
         <?php
-            $sql = "SELECT * FROM users WHERE `is_deleted` = 0;";
+            function sortResult($order, $item){
+                $sql = "SELECT * FROM `users` WHERE `is_deleted` = 0";
+                switch ($order) {
+                    case 'asc':
+                        switch ($item) {
+                            case 'fname':
+                                $sql .= " ORDER BY `fname` " . strtoupper($order) . ";";
+                                break;
+                            
+                            case 'lname':
+                                $sql .= " ORDER BY `age` " . strtoupper($order) . ";";
+                                break;
+
+                            case 'age':
+                                $sql .= " ORDER BY `age` " . strtoupper($order) . ";";
+                                break;
+
+                            case 'dob':
+                                $sql .= " ORDER BY `dob` " . strtoupper($order) . ";";
+                                break;
+
+                            default:
+                                $sql .= ";";
+                                break;
+                        }
+                        break;
+                    
+                    case 'desc':
+                        switch ($item) {
+                            case 'fname':
+                                $sql .= " ORDER BY `fname` " . strtoupper($order) . ";";
+                                break;
+                            case 'lname':
+                                $sql .= " ORDER BY `lname` " . strtoupper($order) . ";";
+                                break;
+                            case 'age':
+                                $sql .= " ORDER BY `age` " . strtoupper($order) . ";";
+                                break;
+                            case 'dob':
+                                $sql .= " ORDER BY `dob` " . strtoupper($order) . ";";
+                                break;
+                            default:
+                                $sql .= ";";
+                                break;
+                        }
+                        break;
+                    default:
+                        $sql .= ";";
+                        break;
+                }
+                return $sql;
+            }
+            $order = count($_GET) > 0 ? array_keys($_GET)[0] : '';
+            $item = count($_GET) > 0 ? array_values($_GET)[0] : '';
+            $sql = sortResult($order, $item);
             $result = $conn->query($sql);
             if ($result->num_rows > 0) {
                 echo "
                 <th>id</th>
-                <th>First name</th>
-                <th>Last name</th>
-                <th>Age</th>
-                <th>Date of birth</th>
+                <th>First name <a href='?asc=fname'>&#8593;</a><a href='?desc=fname'>&#8595;</a></th>
+                <th>Last name <a href='?asc=lname'>&#8593;</a><a href='?desc=lname'>&#8595;</a></th>
+                <th>Age <a href='?asc=age'>&#8593;</a><a href='?desc=age'>&#8595;</a></th>
+                <th>Date of birth <a href='?asc=dob'>&#8593;</a><a href='?desc=dob'>&#8595;</a></th>
                 <th>Operation</th>";
                 while ($row = $result->fetch_assoc()) {
                     echo "<tr>";
